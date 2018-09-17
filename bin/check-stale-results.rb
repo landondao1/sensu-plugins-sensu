@@ -24,12 +24,19 @@ class CheckStaleResults < Sensu::Plugin::Check::CLI
          proc: proc { |s| ChronicDuration.parse(s) },
          default: ChronicDuration.parse('1d')
 
+  option :timeout,
+         description: 'API read timeout in seconds (default: 60)',
+         short: '-t',
+         long: '--timeout',
+         proc: proc(&:to_i),
+         default: 60
+
   option :verbose,
-         description: 'Be verbose',
-         short: '-v',
-         long: '--verbose',
-         boolean: true,
-         default: false
+        description: 'Be verbose',
+        short: '-v',
+        long: '--verbose',
+        boolean: true,
+        default: false
 
   option :warn,
          description: 'Warn if number of stale check results exceeds COUNT (default: 1)',
@@ -78,7 +85,7 @@ class CheckStaleResults < Sensu::Plugin::Check::CLI
       HEREDOC
     end
     uri = get_uri(path)
-    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', read_timeout: config[:timeout]) do |http|
       request = net_http_req_class(method).new(path)
       if settings['api']['user'] && settings['api']['password']
         request.basic_auth(settings['api']['user'], settings['api']['password'])

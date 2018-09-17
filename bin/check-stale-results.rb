@@ -32,11 +32,11 @@ class CheckStaleResults < Sensu::Plugin::Check::CLI
          default: 60
 
   option :verbose,
-        description: 'Be verbose',
-        short: '-v',
-        long: '--verbose',
-        boolean: true,
-        default: false
+         description: 'Be verbose',
+         short: '-v',
+         long: '--verbose',
+         boolean: true,
+         default: false
 
   option :warn,
          description: 'Warn if number of stale check results exceeds COUNT (default: 1)',

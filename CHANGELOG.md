@@ -5,6 +5,8 @@ This CHANGELOG follows the format listed at [Our CHANGELOG Guidelines ](https://
 Which is based on [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- added read timeout option to check-stale-results.rb (@landondao1)
 
 ## [4.1.0] - 2018-08-28
 ### Changed
